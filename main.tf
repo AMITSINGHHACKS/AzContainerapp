@@ -14,33 +14,33 @@ resource "azurerm_resource_group" "my_rg" {
 }
 
 #AZ Container App Log Analytics
-resource "azurerm_log_analytics_workspace" "example" {
-  name                = "acctest-01"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+resource "azurerm_log_analytics_workspace" "my_log" {
+  name                = var.log_name
+  location            = azurerm_resource_group.my_rg.location
+  resource_group_name = azurerm_resource_group.my_rg.name
   sku                 = "PerGB2018"
   retention_in_days   = 30
 }
 
 #Az App Env
-resource "azurerm_container_app_environment" "example" {
-  name                       = "Example-Environment"
-  location                   = azurerm_resource_group.example.location
-  resource_group_name        = azurerm_resource_group.example.name
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.example.id
+resource "azurerm_container_app_environment" "my_appenv" {
+  name                       = var.app_env
+  location                   = azurerm_resource_group.my_rg.location
+  resource_group_name        = azurerm_resource_group.my_rg.name
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.my_log.id
 }
 
 #Az Container App
-resource "azurerm_container_app" "example" {
-  name                         = "example-app"
-  container_app_environment_id = azurerm_container_app_environment.example.id
-  resource_group_name          = azurerm_resource_group.example.name
+resource "azurerm_container_app" "my_azcontapp" {
+  name                         = var.cont_app
+  container_app_environment_id = azurerm_container_app_environment.my_appenv.id
+  resource_group_name          = azurerm_resource_group.my_rg.name
   revision_mode                = "Single"
 
   template {
     container {
-      name   = "examplecontainerapp"
-      image  = "mcr.microsoft.com/k8se/quickstart:latest"
+      name   = var.cont_app
+      image  = var.image_name
       cpu    = 0.25
       memory = "0.5Gi"
     }
