@@ -8,7 +8,13 @@ pipeline {
                 }
             }
         }
-        
+        stage ('TF Plan') {
+            steps {
+                script {
+                    sh "terraform plan"
+                }
+            }
+        }
     }
    
 }
