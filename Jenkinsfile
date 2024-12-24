@@ -38,8 +38,11 @@ pipeline {
     }
     post { 
         always { 
-            echo 'cleaning'
-            cleanWS
+            steps {
+                script {
+                    cleanWS
+                }
+            }
         }
     }
    
