@@ -32,6 +32,13 @@ pipeline {
                 }
             }
         }
+        stage ('Clean WS') {
+            steps {
+                script {
+                    cleanWs()
+                }
+            }
+        }
     }
    
 }
