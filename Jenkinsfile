@@ -35,12 +35,11 @@ pipeline {
                 }
             }
         }
-        stage ('Clean WS') {
-            steps {
-                script {
-                    cleanWs()
-                }
-            }
+    }
+    post { 
+        always { 
+            echo 'cleaning'
+            cleanWS
         }
     }
    
