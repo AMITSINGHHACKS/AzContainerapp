@@ -14,10 +14,24 @@ pipeline {
                 }
             }
         }
+        stage ('decrypting the tfvars file') {
+            steps {
+                script {
+                    sh "gpg -d terraform.tfvars.gpg > terraform.tfvars"
+                }
+            }
+        }
         stage ('TF Plan') {
             steps {
                 script {
                     sh "terraform plan"
+                }
+            }
+        }
+        stage ('Removing the tfvars file') {
+            steps {
+                script {
+                    sh "rm -rf terraform.tfvars"
                 }
             }
         }
