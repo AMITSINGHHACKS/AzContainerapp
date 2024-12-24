@@ -2,10 +2,6 @@ pipeline {
     agent any
     environment {
         TFVARS_PASSPHRASE = credentials('gpg-passphrase')
-        client_id  = credentials('azure-client-id')
-        client_secret = credentials('azure-client-secret')
-        subscription_id = credentials('azure-subscription-id')
-        tenant_id = credentials('azure-tenant-id')
     }
     stages {
         stage ('TF Initialising') {
