@@ -1,6 +1,7 @@
 pipeline {
     agent any
     environment {
+        TFVARS_PASSPHRASE = credentials('gpg-passphrase')
         client_id  = credentials('azure-client-id')
         client_secret = credentials('azure-client-secret')
         subscription_id = credentials('azure-subscription-id')
@@ -17,7 +18,7 @@ pipeline {
         stage ('decrypting the tfvars file') {
             steps {
                 script {
-                    sh "gpg -d terraform.tfvars.gpg > terraform.tfvars"
+                    sh "gpg --batch --yes --passphrase $TFVARS_PASSPHRASE -d terraform.tfvars.gpg > terraform.tfvars"
                 }
             }
         }
