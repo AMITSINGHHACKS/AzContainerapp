@@ -38,12 +38,7 @@ pipeline {
     }
     post { 
         always { 
-            steps {
-                script {
-                    cleanWS
-                }
-            }
+            cleanWs()
         }
     }
-   
 }
