@@ -24,7 +24,7 @@ pipeline {
         stage ('TF Plan') {
             steps {
                 script {
-                    sh "terraform ${params.plan-destroy}"
+                    sh "terraform ${params.action}"
                 }
             }
         }
