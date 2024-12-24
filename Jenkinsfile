@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        choice(name: "plan-destroy", choices: plan, choices: destroy)
+        choice(name: "plan-destroy", choices: plan,destroy)
     }
     environment {
         TFVARS_PASSPHRASE = credentials('gpg-passphrase')
