@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    parameters {
+        choice(name: "plan-destroy", choices: plan, choices: destroy)
+    }
     environment {
         TFVARS_PASSPHRASE = credentials('gpg-passphrase')
     }
@@ -21,7 +24,7 @@ pipeline {
         stage ('TF Plan') {
             steps {
                 script {
-                    sh "terraform plan"
+                    sh "terraform ${params.plan-destroy}"
                 }
             }
         }
