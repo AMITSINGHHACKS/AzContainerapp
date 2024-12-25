@@ -25,7 +25,9 @@ pipeline {
         stage ('changing the image name') {
             steps {
                 script {
-                    sh "sed -i 's/^image_name = \".*\"/image_name = \"amitsingh01\/${APP_NAME}:${IMAGE_TAG}\"/' terraform.tfvars"
+                    sh """
+                    sed -i 's/^image_name = \".*\"/image_name = \"amitsingh01/${APP_NAME}:${IMAGE_TAG}\"/' terraform.tfvars
+                    """
                 }
             }
         }
