@@ -5,6 +5,7 @@ pipeline {
     }
     environment {
         TFVARS_PASSPHRASE = credentials('gpg-passphrase')
+        APP_NAME = "azure-web-search"
     }
     stages {
         stage ('TF Initialising') {
@@ -18,6 +19,13 @@ pipeline {
             steps {
                 script {
                     sh "gpg --batch --yes --passphrase $TFVARS_PASSPHRASE -d terraform.tfvars.gpg > terraform.tfvars"
+                }
+            }
+        }
+        stage ('changing the image name') {
+            steps {
+                script {
+                    sh "sed -i 's+${APP_NAME}.*+${APP_NAME}:${IMAGE_TAG}+g' t.txt"
                 }
             }
         }
