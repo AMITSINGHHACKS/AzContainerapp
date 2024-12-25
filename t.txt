@@ -1,1 +1,0 @@
-image_name = "amitsingh01/azure-web-search"
