@@ -37,6 +37,11 @@ resource "azurerm_container_app" "my_azcontapp" {
   resource_group_name          = azurerm_resource_group.my_rg.name
   revision_mode                = "Single"
 
+  ingress {
+    external_enabled = true
+    target_port      = 8000  
+  }
+
   template {
     container {
       name   = var.cont_app
