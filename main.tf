@@ -33,9 +33,13 @@ resource "azurerm_container_app" "my_azcontapp" {
   resource_group_name          = azurerm_resource_group.my_rg.name
   revision_mode                = "Single"
 
-  ingress {
+   ingress {
     external_enabled = true
-    target_port      = 8000  
+    target_port      = 8000
+    traffic_weight {
+      latest_revision = true
+      percentage      = 100
+    }
   }
 
   template {
