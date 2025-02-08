@@ -1,0 +1,23 @@
+version: 2.1
+
+executors:
+  terraform:
+    docker:
+      - image: hashicorp/terraform:latest
+
+jobs:
+  terraform-apply:
+    executor: terraform
+    steps:
+      - checkout
+      - run:
+          name: Terraform Init
+          command: terraform init
+      - run:
+          name: Terraform Plan
+          command: terraform plan
+workflows:
+  version: 2
+  deploy_infra:
+    jobs:
+      - terraform-apply
