@@ -16,8 +16,31 @@ jobs:
       - run:
           name: Terraform Plan
           command: terraform plan
+      - run:
+          name: Terraform Apply
+          command: terraform apply -auto-approve
+
+  terraform-destroy:
+    executor: terraform
+    steps:
+      - checkout
+      - run:
+          name: Terraform Init
+          command: terraform init
+      - run:
+          name: Terraform Destroy
+          command: terraform destroy -auto-approve
+
 workflows:
   version: 2
   deploy_infra:
     jobs:
       - terraform-apply
+      - hold-destroy:  
+          type: approval
+          requires:
+            - terraform-apply
+      - terraform-destroy:
+          requires:
+            - hold-destroy 
+
