@@ -19,6 +19,9 @@ jobs:
       - run:
           name: Terraform Apply
           command: terraform apply -auto-approve
+      - run:
+          name: Terraform destroy
+          command: terraform destroy -auto-approve
 
   terraform-destroy:
     executor: terraform
